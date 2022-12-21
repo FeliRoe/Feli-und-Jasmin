@@ -3,7 +3,7 @@ version: '3.8'
 services: 
   datenbank:
     container_name: datenbank
-    image: datenbank:0.0.2
+    image: datenbank:0.0.6
     build: 
       context: .
     ports:
@@ -13,7 +13,7 @@ services:
       - PGDATABASE=roe_db
       - PGUSER=feliroe
       - PGPASSWORD=301198
-      - PGHOST=node_db
+      - PGHOST=connect_db
     depends_on: 
       - connect_db
   connect_db: 
