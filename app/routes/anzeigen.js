@@ -1,16 +1,17 @@
-import { getAlleAnzeigen, gettypehouse, gettypeconstructionsite, gettypeapartment, getidfilter, AnzeigeErstellen, updateAnzeige, deleteAnzeige } from '../controllers/anzeigen';
+const excecute = require('../execute/anzeigen');
 const router = require('express').Router();
 
 
 
-router.get('/', contoller.getAlleAnzeigen )
-router.get('/houses', contoller.gettypehouse );
-router.get('/construction-sites', contoller.gettypeconstructionsite );
-router.get('/apartments', contoller.gettypeapartment );
-router.get('/:id', contoller.getidfilter );
-router.post('/', AnzeigeErstellen );
-router.put('/:id', contoller.updateAnzeige )
-router.delete('/:id', contoller.deleteAnzeige );
+router.get('/', excecute.alleAnzeigen)
+router.get('/houses', excecute.Haeuser);
+router.get('/construction-sites', excecute.ConstructionSites);
+router.get('/apartments', excecute.Apartments);
+router.get('/:id', excecute.specificAnzeige);  
+router.post('/', excecute.erstelleAnzeige);
+router.get('/:id', excecute.specificAnzeige);  
+router.put('/:id', excecute.putAnzeige);
+router.delete('/:id', excecute.loesche);
   
 
-export default router;
+module.exports = router;

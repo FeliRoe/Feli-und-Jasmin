@@ -1,14 +1,14 @@
-import express, { json, urlencoded } from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 
-import { sync } from './util/database';
-import User from './models/anzeigen';
+const sequelize = require('./util/database');
+const User = require('./datenstruktur/anzeigen');
 
 const app = express();
 
-app.use(json());
+app.use(express.json());
 app.use(cors());
-app.use(urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true}));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin','*');
@@ -16,15 +16,17 @@ app.use((req, res, next) => {
   next();
 })
 
-
-app.use('/inserate', require('./routes/anzeigen'));
+//app.use('/dev', require('./routes/dev'));
+app.use('/anzeigen', require('./routes/anzeigen'));
+app.use('/users', require('./routes/users'));
+app.use('/intressenten', require('./routes/intressenten'));
 
 (async () =>{
   try {
-    await sync(
+    await sequelize.sync(
       {force: false}
     );
-    console.log("test");
+    console.log("lets go");
     app.listen(process.env.EXTERNAL_PORT || 6969);
   } catch (error) {
     console.error(error);
